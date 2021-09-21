@@ -68,7 +68,7 @@ void Unpacker2D::BuildEvent(EventIII* e, std::map<UInt_t, std::vector<UInt_t>>* 
     TDCChannel* tc = e->AddTDCChannel(kReferenceChannel + ref_it->first);
     data = ref_it->second;
     fine = data & 0x7f;
-    coarse = (data >> 8) & 0xffff;
+    coarse = (data >> 7) & 0xffff;
 
     if (useTDCcorrection)
     {
@@ -99,7 +99,7 @@ void Unpacker2D::BuildEvent(EventIII* e, std::map<UInt_t, std::vector<UInt_t>>* 
       refTime = refTimes_local.find((int)((m_it->first - kModularOffset) / kNumberOfChannels) * kNumberOfChannels + kModularOffset)->second;
       data = m_it->second[i];
       fine = data & 0x7f;
-      coarse = (data >> 8) & 0xffff;
+      coarse = (data >> 7) & 0xffff;
       rising = (data >> 31);
 
       if (useTDCcorrection)
