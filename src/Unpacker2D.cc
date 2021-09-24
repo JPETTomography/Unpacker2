@@ -370,6 +370,11 @@ void Unpacker2D::DistributeEventsSingleStep()
       // skip event headers
       file->ignore(7 * 4);
 
+      endpointsCtr = 0;
+      refTimesCtr = 0;
+
+      refTimes.clear();
+      
       //*****************
       //  LOOP OVER CONCENTRATORS IN THE QUEUE
       //*****************
@@ -393,8 +398,6 @@ void Unpacker2D::DistributeEventsSingleStep()
         data4 = ReverseHex(data4);
         trgId = data4;
         queueSize--;
-        endpointsCtr = 0;
-        refTimesCtr = 0;
 
         //*****************
         // LOOP OVER FTABS FROM CONCENTRATOR
@@ -505,7 +508,7 @@ void Unpacker2D::DistributeEventsSingleStep()
       if (!badIdSkip && endpointsCtr == refTimesCtr)
       {
         // copy all times into the tree
-        BuildEvent(eventIII, &tdc_channels, &refTimes_previous);
+        BuildEvent(eventIII, &tdc_channels, &refTimes);
         newTree->Fill();
       }
 
